@@ -33,9 +33,10 @@ $ npm run start:prod
 ```
 
 ## Running the database
+To run the database you will need to configure the 'docker-compose.yml' file, take as an example the 'docker-compose.example.yml'
 
 ```bash
-# run the database on a container ("which is configured on docker-compose.yml")
+# run the database on a container ("which is configure on docker-compose.yml")
 $ database:run
 
 # run the studio to visualize the tables
