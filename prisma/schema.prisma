@@ -1,0 +1,126 @@
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+enum Role {
+    Admin
+    Funcionario
+    Default
+}
+
+enum Genero {
+    Masculino
+    Feminino
+    Outros
+}
+
+model Telefone {
+    id        String  @id @unique @default(cuid())
+    pais      String  @db.VarChar(3)
+    ddd       String  @db.VarChar(3)
+    numero    String  @db.VarChar(9)
+    descricao String  @db.VarChar(100)
+    principal Boolean
+    ativo     Boolean @default(true)
+    usuarioId String
+    usuario   Usuario @relation(fields: [usuarioId], references: [id])
+}
+
+model Endereco {
+    id          String  @id @unique @default(cuid())
+    pais        String  @db.VarChar(2)
+    estado      String  @db.VarChar(2)
+    cidade      String  @db.VarChar(64)
+    cep         String  @db.VarChar(16)
+    endereco    String  @db.VarChar(256)
+    complemento String  @db.VarChar(128)
+    usuarioId   String  @unique
+    usuario     Usuario @relation(fields: [usuarioId], references: [id])
+}
+
+model Usuario {
+    id         String     @id @unique @default(cuid())
+    ativo      Boolean    @default(true)
+    nome       String     @db.VarChar(100)
+    email      String     @unique @db.VarChar(100)
+    senha      String     @db.VarChar(50)
+    cpf        String     @unique @db.VarChar(11)
+    created_at DateTime   @default(now())
+    updated_at DateTime   @updatedAt
+    tipo       Role       @default(Default)
+    genero     Genero?
+    endereco   Endereco?
+    telefones  Telefone[]
+    reservas   Reserva[]
+    quartos    Quarto[]
+}
+
+model Atributo {
+    id        Int      @id @unique @default(autoincrement())
+    descricao String
+    valor     String
+    ativo     Boolean  @default(true)
+    imagemId  String
+    imagem    Imagem   @relation(fields: [imagemId], references: [id])
+    quarto    Quarto[]
+}
+
+model Imagem {
+    id         String     @id @unique @default(cuid())
+    url        String
+    descricao  String?    @db.VarChar(50)
+    created_at DateTime   @default(now())
+    updated_at DateTime   @updatedAt
+    Atributo   Atributo[]
+    Quarto     Quarto[]
+}
+
+model Quarto {
+    id        Int        @id @unique @default(autoincrement())
+    titulo    String     @db.VarChar(50)
+    descricao String     @db.VarChar(300)
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    ativo     Boolean    @default(true)
+    ownerId   String
+    owner     Usuario    @relation(fields: [ownerId], references: [id])
+    atributos Atributo[]
+    reservas  Reserva[]
+    imagens   Imagem[]
+}
+
+enum ReservaStatusTipo {
+    Pendente
+    Cancelada
+    Confirmada
+    CheckedIn
+    CheckedOut
+}
+
+model ReservaStatus {
+    id         String            @id @default(cuid())
+    reservaId  String
+    observacao String?
+    createdAt  DateTime          @default(now())
+    updatedAt  DateTime          @updatedAt
+    status     ReservaStatusTipo @default(Pendente)
+    reserva    Reserva           @relation(fields: [reservaId], references: [id])
+}
+
+model Reserva {
+    id        String          @id @unique @default(cuid())
+    quartoId  Int
+    hospedeId String
+    checkIn   DateTime
+    checkOut  DateTime
+    createdAt DateTime        @default(now())
+    updatedAt DateTime        @updatedAt
+    quarto    Quarto          @relation(fields: [quartoId], references: [id])
+    hospede   Usuario         @relation(fields: [hospedeId], references: [id])
+    status    ReservaStatus[]
+}

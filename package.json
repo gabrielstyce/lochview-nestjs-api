@@ -2,7 +2,7 @@
   "name": "lochview-nestjs-api",
   "version": "0.0.1",
   "description": "A api that servers to manage an hotel",
-  "main": "index.js",
+  "main": "main.js",
   "scripts": {
     "build": "rimraf dist && nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
@@ -10,6 +10,9 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
+    "database:run": "docker-compose up",
+    "database:run:studio": "npx prisma studio",
+    "database:run:migrations": "npx prisma migrate dev",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -22,9 +25,14 @@
     "@nestjs/config": "^1.0.2",
     "@nestjs/core": "^8.0.0",
     "@nestjs/platform-express": "^8.0.0",
+    "@nestjs/swagger": "^5.1.3",
+    "@prisma/client": "^3.2.1",
+    "class-transformer": "^0.4.0",
+    "class-validator": "^0.13.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",
@@ -42,6 +50,7 @@
     "husky": "^7.0.2",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
+    "prisma": "^3.2.1",
     "supertest": "^6.1.3",
     "ts-jest": "^27.0.3",
     "ts-loader": "^9.2.3",
@@ -68,7 +77,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run test && npm run format && npm run lint"
+      "pre-commit": "npm run build && npm run test && npm run format && npm run lint"
     }
   }
 }

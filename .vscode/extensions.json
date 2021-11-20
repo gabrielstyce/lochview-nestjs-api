@@ -1,0 +1,9 @@
+{
+    "recommendations": [
+        "prisma.prisma",
+        "esbenp.prettier-vscode",
+        "christian-kohler.npm-intellisense",
+        "abhijoybasak.nestjs-files",
+        "pkief.material-icon-theme"
+    ]
+}
