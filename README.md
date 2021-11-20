@@ -32,6 +32,19 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## Running the database
+
+```bash
+# run the database on a container ("which is configured on docker-compose.yml")
+$ database:run
+
+# run the studio to visualize the tables
+$ database:run:studio
+
+# run migrations
+$ database:run:migrations
+```
+
 ## Test
 
 ```bash
