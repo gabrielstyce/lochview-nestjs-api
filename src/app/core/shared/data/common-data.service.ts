@@ -45,4 +45,24 @@ export abstract class CommonDataService<IdTypeDataModel, DataModel, CreateDataMo
   async listAll(): PromiseDataResponse<DataModel[]> {
     return await this.dataService.findMany();
   }
+
+  async delete(modelId: IdTypeDataModel): PromiseDataResponse<DataModel> {
+    return await this.dataService.delete({
+      where: { id: modelId }
+    });
+  }
+
+  async activate(modelId: IdTypeDataModel) {
+    return await this.dataService.update({
+      where: { id: modelId },
+      data: { ativo: true }
+    });
+  }
+
+  async deactivate(modelId: IdTypeDataModel) {
+    return await this.dataService.update({
+      where: { id: modelId },
+      data: { ativo: false }
+    });
+  }
 }

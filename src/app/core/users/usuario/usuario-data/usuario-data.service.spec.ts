@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SharedModule } from '../../../shared/shared.module';
+import { CoreModule } from 'src/app/core/core.module';
 import { UsuarioDataService } from './usuario-data.service';
 
 describe('UsuarioDataService', () => {
@@ -7,7 +7,7 @@ describe('UsuarioDataService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [SharedModule],
+      imports: [CoreModule],
       providers: [UsuarioDataService]
     }).compile();
 

@@ -47,4 +47,16 @@ export abstract class CommonService<
   async listAll(): PromiseDataResponse<DataModel[]> {
     return await this._dtS.listAll();
   }
+
+  delete(modelId: IdTypeDataModel): PromiseDataResponse<DataModel> {
+    return this._dtS.delete(modelId);
+  }
+
+  activate(modelId: IdTypeDataModel): PromiseDataResponse<DataModel> {
+    return this._dtS.activate(modelId);
+  }
+
+  deactivate(modelId: IdTypeDataModel): PromiseDataResponse<DataModel> {
+    return this._dtS.deactivate(modelId);
+  }
 }
