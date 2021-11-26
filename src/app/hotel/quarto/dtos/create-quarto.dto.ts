@@ -1,10 +1,10 @@
 import { Quarto } from '.prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { ArrayMaxSize, IsArray, IsNotEmpty, IsString, MaxLength, ValidateNested } from 'class-validator';
+import { ArrayMaxSize, IsArray, IsNotEmpty, IsNumber, IsString, MaxLength, ValidateNested } from 'class-validator';
 import { CommonUpdateModelNumber } from '../../../core/shared/models/common-update-model.dto';
 import { CreateImageDTO } from '../../imagem/dtos/create-image.dto';
 
-export class CreateQuartoDTO implements Partial<Quarto> {
+export class CreateQuartoDTO {
   @ApiProperty()
   @IsNotEmpty()
   @IsString()
@@ -16,6 +16,11 @@ export class CreateQuartoDTO implements Partial<Quarto> {
   @IsString()
   @MaxLength(50)
   descricao!: string;
+
+  @ApiProperty()
+  @IsNotEmpty()
+  @IsNumber()
+  valor!: number;
 
   @ApiProperty({
     type: [CreateImageDTO]

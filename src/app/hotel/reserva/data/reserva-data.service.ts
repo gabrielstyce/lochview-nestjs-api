@@ -3,11 +3,11 @@ import { Injectable } from '@nestjs/common';
 import { CommonDataService } from 'src/app/core/shared/data/common-data.service';
 import { IdModel, PromiseDataResponse } from 'src/app/core/shared/models/common-service.types';
 import { PrismaService } from 'src/app/core/shared/prisma/prisma.service';
-import { CreateReservaDTO } from '../dtos/create-reserva.dto';
 import { UpdateReservaDTO } from '../dtos/update-reserva.dto';
+import { CreateReservaData } from '../models/create-reserva-data.model';
 
 @Injectable()
-export class ReservaDataService extends CommonDataService<string, Reserva, CreateReservaDTO, UpdateReservaDTO> {
+export class ReservaDataService extends CommonDataService<string, Reserva, CreateReservaData, UpdateReservaDTO> {
   protected get dataService() {
     return this._p.reserva;
   }
@@ -16,7 +16,7 @@ export class ReservaDataService extends CommonDataService<string, Reserva, Creat
     super(_p);
   }
 
-  async create(dto: CreateReservaDTO, [hospedeId]): PromiseDataResponse<IdModel<string>> {
+  async create(dto: CreateReservaData, [hospedeId]): PromiseDataResponse<IdModel<string>> {
     return await this.dataService.create({
       data: {
         quarto: {
@@ -36,7 +36,8 @@ export class ReservaDataService extends CommonDataService<string, Reserva, Creat
           }
         },
         checkIn: dto.checkIn,
-        checkOut: dto.checkOut
+        checkOut: dto.checkOut,
+        valor: dto.valor
       }
     });
   }

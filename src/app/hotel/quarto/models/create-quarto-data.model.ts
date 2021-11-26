@@ -4,6 +4,7 @@ export interface CreateQuartoDataModel {
   quarto: {
     titulo: string;
     descricao: string;
+    valor: number;
   };
 
   ownerId: string;
