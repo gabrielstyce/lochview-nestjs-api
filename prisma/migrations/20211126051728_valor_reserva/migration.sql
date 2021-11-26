@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE "Quarto" ADD COLUMN     "valor" DECIMAL(65,30) NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "Reserva" ADD COLUMN     "valor" DECIMAL(65,30) NOT NULL DEFAULT 0;

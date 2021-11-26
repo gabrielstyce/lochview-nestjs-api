@@ -48,7 +48,7 @@ model Usuario {
     ativo      Boolean    @default(true)
     nome       String     @db.VarChar(100)
     email      String     @unique @db.VarChar(100)
-    senha      String     @db.VarChar(50)
+    senha      String     @db.VarChar(200)
     cpf        String     @unique @db.VarChar(11)
     created_at DateTime   @default(now())
     updated_at DateTime   @updatedAt
@@ -87,6 +87,7 @@ model Quarto {
     createdAt DateTime   @default(now())
     updatedAt DateTime   @updatedAt
     ativo     Boolean    @default(true)
+    valor     Decimal    @default(0)
     ownerId   String
     owner     Usuario    @relation(fields: [ownerId], references: [id])
     atributos Atributo[]
@@ -120,6 +121,7 @@ model Reserva {
     checkOut  DateTime
     createdAt DateTime        @default(now())
     updatedAt DateTime        @updatedAt
+    valor     Decimal         @default(0)
     quarto    Quarto          @relation(fields: [quartoId], references: [id])
     hospede   Usuario         @relation(fields: [hospedeId], references: [id])
     status    ReservaStatus[]
