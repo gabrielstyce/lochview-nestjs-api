@@ -10,12 +10,10 @@ export class AdminService extends UsuarioService {
   }
 
   async create(model: CreateUserDTO): Promise<{ id: string } | null> {
-    const user = await this.data.create(model, 'Admin');
-    return user ? { id: user.id } : null;
+    return super.create(model, 'Admin');
   }
 
   async createFuncionario(model: CreateUserDTO): Promise<{ id: string } | null> {
-    const user = await this.data.create(model, 'Funcionario');
-    return user ? { id: user.id } : null;
+    return super.create(model, 'Funcionario');
   }
 }

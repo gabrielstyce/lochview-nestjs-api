@@ -7,29 +7,31 @@ export class StateMachine<ProcessState, Events> {
     return this._transitions;
   }
 
-  private _currentState: ProcessState;
+  protected _currentState: ProcessState;
 
   public get currentState(): ProcessState {
     return this._currentState;
   }
 
-  constructor(initialState: ProcessState, transitions: Transitions<StateTransition<ProcessState, Events>, ProcessState>) {
+  constructor(initialState: ProcessState, transitions: Transitions<StateTransition<ProcessState, Events>, ProcessState>, context?) {
     this._currentState = initialState;
     this._transitions = transitions;
   }
 
   public getNext(commnd: Events): ProcessState {
     const trasition = new StateTransition<ProcessState, Events>(this.currentState, commnd);
-    const nextState = this.transitions.get(trasition);
+    try {
+      const nextState = this.transitions.get(trasition);
+      console.log(`StateMachine | getNext - nextState: ${nextState}`);
+      if (nextState) {
+        return nextState;
+      }
+    } catch (error) {}
 
-    if (nextState) {
-      return nextState;
-    }
-
-    throw new Error(`Invalid transition: ${this.currentState} -> ${commnd}`);
+    throw new Error(`Invalid transition: Trying change state '${this.currentState}' on -> '${commnd}' command `);
   }
 
-  public next(command: Events): ProcessState {
-    return (this._currentState = this.getNext(command));
+  public next(event: Events, ...args): ProcessState {
+    return (this._currentState = this.getNext(event));
   }
 }

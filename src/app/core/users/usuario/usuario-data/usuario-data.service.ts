@@ -30,4 +30,10 @@ export class UsuarioDataService extends CommonDataService<string, Usuario, Creat
       where: { cpf: cpf }
     });
   }
+
+  async findByEmail(email: string): Promise<Usuario | null> {
+    return await this.dataService.findFirst({
+      where: { email: email }
+    });
+  }
 }

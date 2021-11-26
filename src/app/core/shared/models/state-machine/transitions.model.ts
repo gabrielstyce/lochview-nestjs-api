@@ -1,9 +1,10 @@
 import { EqualityHelper } from 'src/app/helpers/equality.helper';
+import { TransitionItem } from './transitions.type';
 
 export class Transitions<Key, Value> {
-  private _map: Array<{ key: Key; value: Value }> = [];
+  private _map: Array<TransitionItem<Key, Value>> = [];
 
-  constructor(e?: Array<{ key: Key; value: Value }>) {
+  constructor(e?: Array<TransitionItem<Key, Value>>) {
     this._map = e || [];
   }
 

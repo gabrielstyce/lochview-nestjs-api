@@ -14,7 +14,6 @@ async function bootstrap() {
     .setTitle('Lochview API')
     .setDescription('A api that servers to manage an hotel')
     .setVersion('1.0')
-    .addTag('hotel')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('swagger', app, document);
