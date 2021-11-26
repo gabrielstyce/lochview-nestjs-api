@@ -13,7 +13,7 @@ export class UsuarioService extends CommonUserService {
 
   async create(model: CreateUserDTO, tipo: Role = 'Default'): Promise<{ id: string } | null> {
     model.senha = await hash(model.senha, 10);
-    const user = await this.dataService.create(model);
+    const user = await this.dataService.create(model, tipo);
     return user ? { id: user.id } : null;
   }
 

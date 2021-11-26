@@ -27,7 +27,7 @@ export abstract class CommonService<
 
   async create(dto: CreateServiceDataModel, ...args): PromiseDataResponse<IdModel<IdTypeDataModel>> {
     const data = await this.parseCreateModel(dto, args);
-    return await this._dtS.create(data);
+    return await this._dtS.create(data, args);
   }
 
   async createMany(dto: Array<CreateServiceDataModel>, ...args): PromiseDataResponse<Array<IdModel<IdTypeDataModel>>> {

@@ -16,7 +16,8 @@ export class UsuarioDataService extends CommonDataService<string, Usuario, Creat
     super(_p);
   }
 
-  async create(user: CreateUserDTO, tipo: Role = 'Default'): PromiseDataResponse<IdModel<string>> {
+  async create(user: CreateUserDTO, tipo: Role): PromiseDataResponse<IdModel<string>> {
+    console.log(user);
     const newData = {
       ...user,
       tipo: tipo
