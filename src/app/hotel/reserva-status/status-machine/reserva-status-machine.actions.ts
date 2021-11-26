@@ -1,4 +1,4 @@
-import { ReservaStatus, ReservaStatusTipo } from '@prisma/client';
+import { ReservaStatus } from '@prisma/client';
 import { ReservaStatusMachine } from 'src/app/core/shared/models/factories/reserva-status-machine.factory';
 import { IReservaEvents, eReservaEvent } from 'src/app/core/shared/models/reserva-machine.types';
 import { CommonService } from 'src/app/core/shared/service/common-service.service';
@@ -48,28 +48,28 @@ export abstract class ReservaStatusMachineActions
 
   async onPaymentConfirmed(reservaId: string): Promise<void> {
     await this.onEventFired(eReservaEvent.OnPaymentConfirmed, {
-      observacao: 'Sua reserva foi cancelada!',
+      observacao: 'Sua reserva foi confirmada, aguardamos seu check-in =)',
       reservaId: reservaId
     });
   }
 
   async onPaymentRefused(reservaId: string): Promise<void> {
     await this.onEventFired(eReservaEvent.OnPaymentRefused, {
-      observacao: 'Sua reserva foi cancelada!',
+      observacao: 'Sua reserva foi cancelada = (',
       reservaId: reservaId
     });
   }
 
   async onCheckIn(reservaId: string): Promise<void> {
     await this.onEventFired(eReservaEvent.OnCheckIn, {
-      observacao: 'Sua reserva foi cancelada!',
+      observacao: 'Você realizou o check-in!',
       reservaId: reservaId
     });
   }
 
   async onCheckOut(reservaId: string): Promise<void> {
     await this.onEventFired(eReservaEvent.OnCheckOut, {
-      observacao: 'Sua reserva foi cancelada!',
+      observacao: 'Você realizou o check-ou, volte sempre = )',
       reservaId: reservaId
     });
   }

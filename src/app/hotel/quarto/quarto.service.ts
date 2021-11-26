@@ -17,8 +17,7 @@ export class QuartoService extends CommonService<number, Quarto, CreateQuartoDTO
     return await this.dataService.listByDate(initialDate, finalDate);
   }
 
-  protected async parseCreateModel(data: CreateQuartoDTO, ownerId: string): Promise<CreateQuartoDataModel> {
-    super.parseCreateModel(data, ownerId);
+  protected async parseCreateModel(data: CreateQuartoDTO, [ownerId]): Promise<CreateQuartoDataModel> {
     const images = await this.imageService.createMany(data.imagens);
 
     return {

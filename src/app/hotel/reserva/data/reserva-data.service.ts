@@ -16,7 +16,7 @@ export class ReservaDataService extends CommonDataService<string, Reserva, Creat
     super(_p);
   }
 
-  async create(dto: CreateReservaDTO, ...args: any[]): PromiseDataResponse<IdModel<string>> {
+  async create(dto: CreateReservaDTO, [hospedeId]): PromiseDataResponse<IdModel<string>> {
     return await this.dataService.create({
       data: {
         quarto: {
@@ -26,7 +26,7 @@ export class ReservaDataService extends CommonDataService<string, Reserva, Creat
         },
         hospede: {
           connect: {
-            id: 'ckwbeveb0006244u1etx3zlz7' // TODO: LINKAR O ID DO USUARIO AUTENTICADO
+            id: hospedeId
           }
         },
         status: {

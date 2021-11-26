@@ -1,6 +1,6 @@
 import { Reserva } from '.prisma/client';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
+import { IsDate, IsDateString, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class CreateReservaDTO implements Partial<Reserva> {
   @ApiProperty()
@@ -10,11 +10,11 @@ export class CreateReservaDTO implements Partial<Reserva> {
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   checkIn!: Date;
 
   @ApiProperty()
   @IsNotEmpty()
-  @IsDate()
+  @IsDateString()
   checkOut!: Date;
 }
