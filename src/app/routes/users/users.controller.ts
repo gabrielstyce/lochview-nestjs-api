@@ -1,6 +1,7 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthenticationService } from 'src/app/core/authentication/authentication.service';
+import { JwtAuthGuard } from 'src/app/core/authentication/guards/jwt-auth.guard';
 import { CreateUserDTO } from 'src/app/core/users/usuario/dto/create-user.dto';
 import { LoginDTO } from 'src/app/core/users/usuario/dto/login.dto';
 import { UsuarioService } from 'src/app/core/users/usuario/usuario.service';
@@ -9,6 +10,12 @@ import { UsuarioService } from 'src/app/core/users/usuario/usuario.service';
 @Controller('users')
 export class UsersController {
   constructor(private readonly authService: AuthenticationService, private readonly userService: UsuarioService) {}
+
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async listAll() {
+    return await this.userService.listAll();
+  }
 
   @Post()
   async create(@Body() payload: CreateUserDTO) {

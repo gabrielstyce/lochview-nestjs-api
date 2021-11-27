@@ -25,6 +25,12 @@ async function bootstrap() {
   // class-validator config
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableCors({
+    origin: '*',
+    methods: 'GET, PUT, POST, DELETE',
+    allowedHeaders: 'Content-Type, Authorization'
+  });
+
   // Application start
   await app.listen(PORT);
   console.log(`Application is RUNING on 'http://localhost:${PORT}'`);

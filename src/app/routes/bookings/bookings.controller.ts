@@ -16,6 +16,12 @@ export class BookingsController implements IReservaEvents {
     private readonly jwtUtil: JWTUtil
   ) {}
 
+  @Get()
+  @UseGuards(JwtAuthGuard)
+  async listAll() {
+    return await this.reservaService.listAll();
+  }
+
   @Get(':id')
   @UseGuards(JwtAuthGuard)
   async findOne(@Param('id') id: string) {

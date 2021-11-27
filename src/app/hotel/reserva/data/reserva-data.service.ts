@@ -41,4 +41,14 @@ export class ReservaDataService extends CommonDataService<string, Reserva, Creat
       }
     });
   }
+
+  listAll(): PromiseDataResponse<Reserva[]> {
+    return this.dataService.findMany({
+      include: {
+        hospede: true,
+        quarto: true,
+        status: true
+      }
+    });
+  }
 }
