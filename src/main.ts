@@ -4,11 +4,9 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 import { PrismaService } from './app/core/shared/prisma/prisma.service';
 
-const PORT = process.env.PORT || 8080;
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  const PORT = process.env.PORT || 8080;
   // Prisma config
   const prismaService: PrismaService = app.get(PrismaService);
   prismaService.enableShutdownHooks(app); // Enables graceful shutdown
